@@ -14,8 +14,8 @@ dengan sumber data Badan Pangan Nasional (Januari 2021 - Januari 2026).
 9. Vercel.
 
 ## Cara Menjalankan
-git clone <url-repo>
-cd <nama-folder>
+git clone https://github.com/aipxd/Inamaal_Syududu_MIA26.git
+cd Inamaal_Syududu_MIA26
 npm install
 npm run dev
 Buka http://localhost:3000
