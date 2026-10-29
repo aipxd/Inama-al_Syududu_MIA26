@@ -1,9 +1,15 @@
-export default function App() {
+import { BalanceCard } from './components/liquid';
+import { Dashboard } from './pages/Dashboard';
+
+function App() {
   return (
-    <main className="min-h-screen bg-green-50 p-6">
-      <h1 className="text-3xl font-bold text-green-800">CekPangan</h1>
-      <p className="mt-2 text-lg text-gray-700">Tailwind sudah aktif.</p>
-      <h2>halo</h2>
-    </main>
-  )
+    <div className="min-h-screen bg-slate-100 p-6 flex justify-center items-center">
+      <div className="w-full max-w-md">
+
+        <Dashboard />
+      </div>
+    </div>
+  );
 }
+
+export default App;
