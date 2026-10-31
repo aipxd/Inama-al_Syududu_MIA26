@@ -1,8 +1,8 @@
-import React from 'react';
+import { Pangi } from "./Pangi";
 
-export const BalanceCard: React.FC = () => {
+export const RecommendCard = () => {
   return (
-    <div className="relative overflow-hidden rounded-2xl bg-[#158d4d] p-6 text-white shadow-xl min-h-[160px] flex flex-col justify-between">
+    <div className="relative overflow-hidden rounded-t-2xl bg-[#158d4d] p-5 text-white min-h-[160px] flex flex-col justify-between">
       
       {/* ========================================================= */}
       {/* BACKGROUND FLUID / MESH WAVE PATTERN (HIJAU THEME SVG)     */}
@@ -18,7 +18,7 @@ export const BalanceCard: React.FC = () => {
           <linearGradient id="fluid-green-1" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#41B673" stopOpacity="0.9" />
             <stop offset="50%" stopColor="#68CC4F" stopOpacity="0.85" />
-            <stop offset="100%" stopColor="#10B981" stopOpacity="0.6" />
+            <stop offset="90%" stopColor="#10B981" stopOpacity="0.6" />
           </linearGradient>
 
           {/* Gradasi Wave 2 - Accent Lime / Hijau Terang ke Emerald */}
@@ -73,14 +73,30 @@ export const BalanceCard: React.FC = () => {
       {/* KONTEN UTAMA (Z-INDEX DI ATAS WAVE)                        */}
       {/* ========================================================= */}
       <div className="relative z-10 space-y-1">
-        <p className="text-xs font-bold tracking-wider text-emerald-100/90 uppercase">
-          CEKPANGAN CASH
-        </p>
-        <h3 className="text-3xl font-black text-white tracking-tight drop-shadow-sm">
-          Rp 10.000.000
-        </h3>
+        <div className="flex justify-center gap">
+            <div>
+                <span className="bg-white text-brand-primary px-4 py-1 rounded-2xl text-xs font-semibold">
+                  Rekomendasi Waktu Belanja
+                </span>
+                <h2 className="text-xl font-bold mt-3 text-shadow-lg/10">
+                    Bawang Putih biasanya 
+                    <span className="underline text-[#b3ff00]"> paling murah </span> 
+                    di bulan Oktober
+                </h2>
+                <p className="text-sm font-medium text-shadow-lg/5">Bulan termahal biasanya di bulan April 
+                    (selisih 
+                    <span className="text-brand-yellow"> 15% </span>).
+                </p>
+            </div>
+            
+            {/* Pangi */}
+            <div>
+                <Pangi />
+            </div>
+        </div>
+
       </div>
 
     </div>
-  );
-};
+  )
+}

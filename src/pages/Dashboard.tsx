@@ -1,10 +1,19 @@
+import { DropdownContainer } from "../components/dashboard/DropdownContainer";
+import Header from "../components/dashboard/Header";
+import { InfoSection } from "../components/dashboard/InfoSection";
 
 
 export const Dashboard = () => {
   return (
-    <div className="text-brand-icon">
-      tes
-    </div>
+    <section>
+      <Header />
+      <div className="py-4 pb-8">
+        <DropdownContainer />
+      </div>
+      <div>
+        <InfoSection />
+      </div>
+    </section>
   )
 }
 
