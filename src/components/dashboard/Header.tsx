@@ -5,7 +5,7 @@ interface HeaderProps {
   onOpenGuide?: () => void;
 }
 
-const Header = ({ onOpenGuide }: HeaderProps) => {
+const Header = ({ onOpenGuide: _onOpenGuide }: HeaderProps) => {
   return (
     <header className="flex justify-between px-5 py-3">
       <div>

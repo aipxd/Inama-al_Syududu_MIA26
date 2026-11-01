@@ -27,7 +27,7 @@ export const Dashboard = () => {
         const data = await fetchCekPanganData();
         setAppData(data);
 
-        const daftarProvinsi = data.meta.provinces || [];
+        // const daftarProvinsi = data.meta.provinces || [];
         const daftarKomoditas = data.meta.commodities
           ? data.meta.commodities.map((item) =>
               typeof item === "object" && item !== null && "label" in item ? item.label : typeof item === "string" ? item : ""

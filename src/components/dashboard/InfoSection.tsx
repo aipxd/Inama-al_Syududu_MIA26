@@ -35,9 +35,10 @@ export const InfoSection = ({
     );
     if (found) commodityId = found.id;
   } else if (typeof appData.meta.commodities === "object") {
+    const commoditiesObj = appData.meta.commodities as Record<string, any>;
     commodityId =
-      Object.keys(appData.meta.commodities).find((key) => {
-        const item = appData.meta.commodities[key];
+      Object.keys(commoditiesObj).find((key) => {
+        const item = commoditiesObj[key];
         // Handle both object and string types for backward compatibility
         const label =
           typeof item === "object" && item !== null && "label" in item
