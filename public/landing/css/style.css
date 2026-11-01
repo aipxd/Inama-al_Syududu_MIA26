@@ -1,0 +1,907 @@
+/* ==========================================================================
+   CekPangan - Clean Light / White Responsive Stylesheet
+   Project MIA26 - Web In Action 2026
+   Berdasarkan Desain Resmi Figma (Mobile & Desktop)
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Design Tokens & CSS Variables (Light Theme)
+   -------------------------------------------------------------------------- */
+:root {
+  /* Green Primary Palette */
+  --color-green-primary: #41B673;
+  --color-green-secondary: #68CC4F;
+  --color-green-gradient: linear-gradient(to right, #41B673, #68CC4F);
+  --color-green-dark: #339960;
+  --color-green-light: #E8F8F0;
+  --color-green-surface: #F0FDF4;
+
+  /* Card Accent Colors */
+  --card-green-chili: #22C55E;
+  --card-orange-oil: #EF4444;
+
+  /* Accent & Action Colors */
+  --color-yellow-cta: #F6C928;
+  --color-yellow-cta-hover: #EAB308;
+  --color-yellow-text: #FDE047;
+
+  /* White & Neutral Palette */
+  --color-bg-page: #FFFFFF;
+  --color-bg-subtle: #F8FAFC;
+  --color-card-white: #FFFFFF;
+  --color-card-border: #E2E8F0;
+  --color-card-border-subtle: #F1F5F9;
+
+  /* Typography Colors */
+  --text-dark: #1F2937;
+  --text-secondary: #4B5563;
+  --text-muted: #6B7280;
+  --text-white: #FFFFFF;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+  --shadow-card: 0 4px 14px -2px rgba(0, 0, 0, 0.06), 0 2px 6px -1px rgba(0, 0, 0, 0.04);
+  --shadow-float: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+
+  /* Radii */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-pill: 9999px;
+
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* --------------------------------------------------------------------------
+   2. Reset & Global Styles
+   -------------------------------------------------------------------------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: var(--color-bg-page);
+}
+
+body {
+  background-color: var(--color-bg-page);
+  color: var(--text-dark);
+  line-height: 1.5;
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.container {
+  width: 100%;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* --------------------------------------------------------------------------
+   3. Header & Navigation (Green Background)
+   -------------------------------------------------------------------------- */
+.site-header {
+  background: var(--color-green-gradient);
+  color: var(--text-white);
+  padding: 16px 0;
+  position: relative;
+  z-index: 100;
+}
+
+.nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-logo {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: var(--text-white);
+  letter-spacing: -0.4px;
+  line-height: 1.1;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.brand-logo .brand-highlight {
+  color: var(--color-yellow-cta);
+}
+
+.brand-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.95);
+  margin-top: 4px;
+  letter-spacing: 0.2px;
+}
+
+.brand-badge svg {
+  width: 13px;
+  height: 13px;
+  fill: currentColor;
+}
+
+/* Desktop Nav Menu */
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  list-style: none;
+}
+
+.nav-link {
+  color: var(--text-white);
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: opacity var(--transition-fast);
+  padding: 4px 0;
+}
+
+.nav-link:hover {
+  opacity: 0.85;
+}
+
+/* Hamburger Button */
+.mobile-menu-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--text-white);
+  font-size: 1.6rem;
+  line-height: 1;
+  padding: 4px 8px;
+}
+
+/* --------------------------------------------------------------------------
+   4. Hero Section (Vibrant Green dengan Maskot di Background)
+   -------------------------------------------------------------------------- */
+.hero-section {
+  background: var(--color-green-gradient);
+  color: var(--text-white);
+  padding: 24px 0 36px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Maskot Pangi di Background (Persis Seperti Screenshot Figma) */
+.hero-bg-mascot {
+  position: absolute;
+  top: 15px;
+  right: -25px;
+  width: 320px;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.42;
+  user-select: none;
+}
+
+.bg-mascot-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transform: rotate(-3deg);
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.1));
+}
+
+.hero-content-wrapper {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 580px;
+}
+
+.hero-headline {
+  font-size: 2.35rem;
+  font-weight: 800;
+  line-height: 1.22;
+  color: var(--text-white);
+  letter-spacing: -0.6px;
+  margin-bottom: 12px;
+}
+
+.hero-subhead {
+  font-size: 0.98rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.95);
+  margin-bottom: 24px;
+  max-width: 440px;
+}
+
+/* Call to Action Button */
+.btn-cta-yellow {
+  background-color: var(--color-yellow-cta);
+  color: #1F2937;
+  font-size: 1rem;
+  font-weight: 800;
+  padding: 14px 26px;
+  border-radius: var(--radius-pill);
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 14px rgba(246, 201, 40, 0.45);
+  transition: var(--transition-fast);
+  text-decoration: none;
+}
+
+.btn-cta-yellow:hover {
+  background-color: var(--color-yellow-cta-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(246, 201, 40, 0.55);
+}
+
+.btn-cta-yellow:active {
+  transform: translateY(0);
+}
+
+.btn-cta-yellow .arrow-icon {
+  font-size: 1.15rem;
+  transition: transform var(--transition-fast);
+}
+
+.btn-cta-yellow:hover .arrow-icon {
+  transform: translateX(3px);
+}
+
+
+
+/* Curved Divider (Gradient Green to White) */
+.hero-curve-divider {
+  position: relative;
+  width: 100%;
+  height: 38px;
+  background: linear-gradient(to right, #41B673, #68CC4F);
+  margin-bottom: -1px;
+}
+
+.hero-curve-divider svg {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* --------------------------------------------------------------------------
+   5. Main Content Area (Clean White Background)
+   -------------------------------------------------------------------------- */
+.white-main-content {
+  background-color: var(--color-bg-page);
+  padding: 24px 0 60px;
+}
+
+/* Top Tips Card: Pola Musiman Dapur */
+.banner-musiman-card {
+  background-color: #FFFFFF;
+  border: 1.5px solid #BBF7D0;
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 28px;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-fast);
+}
+
+.banner-musiman-card:hover {
+  box-shadow: var(--shadow-card);
+  border-color: #86EFAC;
+}
+
+.banner-icon-box {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background-color: #DCFCE7;
+  color: var(--color-green-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.45rem;
+  flex-shrink: 0;
+}
+
+.banner-text-block {
+  display: flex;
+  flex-direction: column;
+}
+
+.banner-tag-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 2px;
+}
+
+.banner-tag {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--text-muted);
+}
+
+.badge-tips {
+  background-color: #DCFCE7;
+  color: #15803D;
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 1px 6px;
+  border-radius: 6px;
+}
+
+.banner-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--text-dark);
+  line-height: 1.3;
+}
+
+.banner-desc {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+}
+
+/* Section Header (With Green Capsule Bar) */
+.section-header-accent {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.accent-green-bar {
+  width: 4px;
+  height: 20px;
+  background-color: var(--color-green-primary);
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.section-header-accent h2 {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-dark);
+  letter-spacing: -0.3px;
+}
+
+/* --------------------------------------------------------------------------
+   6. Ringkasan Pangan Tahun 2025 (Figma Cards)
+   -------------------------------------------------------------------------- */
+.commodity-cards-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 34px;
+}
+
+/* General Commodity Card */
+.commodity-card {
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-fast);
+}
+
+.commodity-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-card);
+}
+
+.commodity-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.commodity-icon-circle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.45rem;
+  flex-shrink: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.commodity-info h3 {
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.commodity-info p {
+  font-size: 0.82rem;
+  margin-top: 2px;
+}
+
+/* Status Pill */
+.status-pill {
+  background-color: #FFFFFF;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+/* Card 1: Cabai Merah Keriting (Vibrant Green) */
+.commodity-card.card-green-chili {
+  background-color: var(--card-green-chili);
+  color: #FFFFFF;
+}
+
+.commodity-card.card-green-chili .commodity-info h3 {
+  color: #FFFFFF;
+}
+
+.commodity-card.card-green-chili .commodity-info p {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.commodity-card.card-green-chili .status-pill {
+  color: #15803D;
+}
+
+/* Card 2: Bawang Putih (White with Gray Border) */
+.commodity-card.card-white-garlic {
+  background-color: #FFFFFF;
+  border: 1px solid var(--color-card-border);
+}
+
+.commodity-card.card-white-garlic .commodity-icon-circle {
+  background-color: #FFFBEB;
+}
+
+.commodity-card.card-white-garlic .commodity-info h3 {
+  color: var(--text-dark);
+}
+
+.commodity-card.card-white-garlic .commodity-info p {
+  color: var(--text-muted);
+}
+
+.commodity-card.card-white-garlic .status-pill {
+  background-color: #F1F5F9;
+  color: #475569;
+  box-shadow: none;
+}
+
+/* Card 3: Minyak Goreng (Vibrant Orange / Red) */
+.commodity-card.card-orange-oil {
+  background-color: var(--card-orange-oil);
+  color: #FFFFFF;
+}
+
+.commodity-card.card-orange-oil .commodity-info h3 {
+  color: #FFFFFF;
+}
+
+.commodity-card.card-orange-oil .commodity-info p {
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.commodity-card.card-orange-oil .status-pill {
+  color: #DC2626;
+}
+
+/* --------------------------------------------------------------------------
+   7. Tren Harga Nasional Section (Grafik Telur)
+   -------------------------------------------------------------------------- */
+.trend-section-card {
+  background-color: #FFFFFF;
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-lg);
+  padding: 18px 20px;
+  margin-bottom: 34px;
+  box-shadow: var(--shadow-sm);
+}
+
+.trend-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.trend-card-header h3 {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--text-dark);
+}
+
+.trend-badge-price {
+  background-color: #DCFCE7;
+  color: #15803D;
+  font-size: 0.76rem;
+  font-weight: 800;
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  border: 1px solid #86EFAC;
+}
+
+.svg-chart-container {
+  width: 100%;
+  height: 180px;
+  margin: 10px 0 16px;
+}
+
+.svg-chart-container svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.trend-note-box {
+  background-color: #FFFBEB;
+  border: 1px solid #FDE68A;
+  border-left: 3px solid #F59E0B;
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-size: 0.8rem;
+  color: #92400E;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  line-height: 1.45;
+}
+
+/* --------------------------------------------------------------------------
+   8. Mengapa CekPangan? (Fitur PRD Sesuai Figma)
+   -------------------------------------------------------------------------- */
+.features-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.feature-box {
+  background-color: #FFFFFF;
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-fast);
+}
+
+.feature-box:hover {
+  box-shadow: var(--shadow-card);
+  border-color: #CBD5E1;
+}
+
+.feature-icon-circle {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background-color: #E8F8F0;
+  color: var(--color-green-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  flex-shrink: 0;
+}
+
+.feature-icon-circle.map {
+  background-color: #FEF3C7;
+  color: #D97706;
+}
+
+.feature-icon-circle.shield {
+  background-color: #E0F2FE;
+  color: #0284C7;
+}
+
+.feature-text h4 {
+  font-size: 0.98rem;
+  font-weight: 800;
+  color: var(--text-dark);
+  margin-bottom: 3px;
+}
+
+.feature-text p {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+}
+
+.data-source-badge-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.data-source-badge {
+  background-color: #FFFFFF;
+  border: 1.5px solid #CBD5E1;
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 6px 16px;
+  border-radius: var(--radius-pill);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.mission-quote {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  text-align: center;
+  max-width: 520px;
+  margin: 0 auto 30px;
+  line-height: 1.5;
+  padding: 0 10px;
+}
+
+/* --------------------------------------------------------------------------
+   9. Footer (Green Background Sesuai Figma)
+   -------------------------------------------------------------------------- */
+.site-footer {
+  background: var(--color-green-gradient);
+  color: #FFFFFF;
+  padding: 30px 0 24px;
+}
+
+.footer-brand {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin-bottom: 8px;
+}
+
+.footer-brand .brand-highlight {
+  color: var(--color-yellow-cta);
+}
+
+.footer-disclaimer-text {
+  font-size: 0.76rem;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.55;
+  margin-bottom: 20px;
+}
+
+.footer-disclaimer-text a {
+  color: var(--color-yellow-cta);
+  text-decoration: underline;
+  font-weight: 700;
+}
+
+.footer-contact-block {
+  margin-bottom: 24px;
+}
+
+.footer-contact-block h4 {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin-bottom: 8px;
+}
+
+.footer-social-icons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.social-icon-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  transition: var(--transition-fast);
+}
+
+.social-icon-btn:hover {
+  background: rgba(255, 255, 255, 0.35);
+  transform: translateY(-2px);
+}
+
+.footer-copyright {
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  padding-top: 16px;
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+}
+
+/* --------------------------------------------------------------------------
+   10. Mobile Responsiveness (Tampilan HP Mengikuti Screenshot Figma)
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  .site-header {
+    padding: 12px 0;
+  }
+
+  /* Hamburger Active */
+  .mobile-menu-toggle {
+    display: block;
+  }
+
+  .nav-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--color-green-gradient);
+    flex-direction: column;
+    padding: 18px 24px;
+    gap: 14px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    display: none;
+  }
+
+  .nav-menu.open {
+    display: flex;
+  }
+
+  /* Hero Mobile Layout (Persis Seperti Screenshot Figma) */
+  .hero-section {
+    padding: 16px 0 28px;
+  }
+
+  .hero-bg-mascot {
+    top: 25px;
+    right: -25px;
+    width: 280px;
+    opacity: 0.42;
+    display: block;
+  }
+
+  .hero-left {
+    max-width: 100%;
+  }
+
+  .hero-headline {
+    font-size: 1.75rem;
+    line-height: 1.25;
+    margin-bottom: 8px;
+  }
+
+  .hero-subhead {
+    font-size: 0.9rem;
+    margin-bottom: 18px;
+    max-width: 84%;
+  }
+
+  /* Tombol CTA Full Width di Mobile */
+  .btn-cta-yellow {
+    width: 100%;
+    justify-content: center;
+    padding: 14px 20px;
+    font-size: 0.95rem;
+  }
+
+  /* Cards Stack di Mobile */
+  .banner-musiman-card {
+    padding: 12px 14px;
+    gap: 12px;
+  }
+
+  .commodity-card {
+    padding: 12px 14px;
+  }
+
+  .commodity-left {
+    gap: 10px;
+  }
+
+  .commodity-icon-circle {
+    width: 38px;
+    height: 38px;
+    font-size: 1.25rem;
+  }
+
+  .commodity-info h3 {
+    font-size: 0.92rem;
+  }
+
+  .commodity-info p {
+    font-size: 0.78rem;
+  }
+
+  .status-pill {
+    font-size: 0.72rem;
+    padding: 5px 10px;
+  }
+
+  /* Fitur Boxes */
+  .feature-box {
+    padding: 12px 14px;
+    gap: 12px;
+  }
+
+  .feature-icon-circle {
+    width: 38px;
+    height: 38px;
+    font-size: 1.2rem;
+  }
+}
+
+/* Tablet & Desktop Layout */
+@media (min-width: 769px) {
+  .hero-headline {
+    font-size: 2.5rem;
+  }
+
+  .hero-bg-mascot {
+    top: 15px;
+    right: 5%;
+    width: 380px;
+    opacity: 0.45;
+  }
+
+  .features-stack {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.boxicons--piggy-bank {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M21 7h-1.4L18 5.4V3c0-.55-.45-1-1-1h-1c-1.44 0-2.75.78-3.45 2H9c-3.86 0-7 3.14-7 7c0 .25.02 6.28 2.11 10.45A1 1 0 0 0 5 22h4c.55 0 1-.45 1-1v-3h2v3c0 .55.45 1 1 1h4c.33 0 .65-.17.83-.45c1.54-2.31 2.08-5.11 2.27-6.55h.9c.55 0 1-.45 1-1V8c0-.55-.45-1-1-1m-1 6h-.81c-.53 0-.97.42-1 .95c0 .04-.19 3.38-1.75 6.05h-2.45v-3c0-.55-.45-1-1-1h-4c-.55 0-1 .45-1 1v3H5.63c-1.61-3.73-1.64-8.95-1.64-9c0-2.76 2.24-5 5-5h4.18c.42 0 .8-.27.94-.67A1.99 1.99 0 0 1 15.98 4v1.81c0 .27.11.52.29.71l2.19 2.19c.19.19.44.29.71.29h.81v4Z'/%3E%3Cpath fill='black' d='M16 9a1 1 0 1 0 0 2a1 1 0 1 0 0-2M7 8h6v2H7z'/%3E%3C/svg%3E");
+  background-color: currentColor;
+  -webkit-mask-image: var(--svg);
+  mask-image: var(--svg);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}
