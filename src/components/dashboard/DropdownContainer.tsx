@@ -28,7 +28,7 @@ export const DropdownContainer = ({
         label="PILIH WILAYAH" 
         icon="akar-icons:location" 
         // Tambahkan opsi "Nasional" jika belum ada
-        options={["NASIONAL", ...wilayahOptions]} 
+        options={[...wilayahOptions]} 
         value={wilayah} 
         onChange={setWilayah} 
       />

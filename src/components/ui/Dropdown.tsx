@@ -9,7 +9,7 @@ interface DropdownProps {
   onChange: (val: string) => void
 }
 
-export const Dropdown = ({ icon, label, options, value, onChange, }: DropdownProps) => {
+export const Dropdown = ({ label, icon, options, value, onChange, }: DropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
