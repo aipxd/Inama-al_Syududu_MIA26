@@ -23,7 +23,7 @@ export const DropdownContainer = ({
   komoditasOptions
 }: DropdownContainerProps) => {
   return (
-    <div className="bg-brand-bg mx-4 p-5 rounded-xl shadow-lg">
+    <div className="bg-brand-bg mx-4 p-5 rounded-xl shadow-lg flex flex-col justify-center ">
       <Dropdown 
         label="PILIH WILAYAH" 
         icon="akar-icons:location" 
@@ -49,6 +49,10 @@ export const DropdownContainer = ({
         />
       </div>
       <PrimaryButton onClick={onCekHarga} />
+
+      <p className="text-xs pt-4 text-brand-gray text-center">
+        Data yang ditampilkan merupakan data yang diambil pada periode  Januari 2021 - Januari 2026
+      </p>
     </div>
   );
 };

@@ -2,15 +2,21 @@ import { useState, useEffect } from "react";
 import { DropdownContainer } from "../components/dashboard/DropdownContainer";
 import Header from "../components/dashboard/Header";
 import { InfoSection } from "../components/dashboard/InfoSection";
-import { fetchCekPanganData, MONTH_NAMES_ID, type AppData } from "../lib/data"
+import { fetchCekPanganData, MONTH_NAMES_ID, type AppData } from "../lib/data";
 
 export const Dashboard = () => {
-  const [appData, setAppData] = useState<AppData | null>(null)
-  
+  const [appData, setAppData] = useState<AppData | null>(null);
+
+  // 1. State Draft (dioper ke Dropdown, berubah langsung saat diklik tapi belum mengubah UI bawah)
   const [wilayah, setWilayah] = useState("");
   const [komoditas, setKomoditas] = useState("");
-  const [bulan, setBulan] = useState("");
-  
+  const [bulan, setBulan] = useState("Januari");
+
+  // 2. State Terapan (dioper ke InfoSection, HANYA berubah saat tombol "Cek Harga" diklik)
+  const [appliedWilayah, setAppliedWilayah] = useState("");
+  const [appliedKomoditas, setAppliedKomoditas] = useState("");
+  const [appliedBulan, setAppliedBulan] = useState("Januari");
+
   const [showData, setShowData] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -28,18 +34,25 @@ export const Dashboard = () => {
             )
           : [];
 
-        if (daftarProvinsi.length > 0) {
-          setWilayah("NASIONAL");
-        }
-        if (daftarKomoditas.length > 0) {
-          setKomoditas(daftarKomoditas[0]);
-        }
+        const initialWilayah = "NASIONAL";
+        const initialKomoditas = daftarKomoditas.length > 0 ? daftarKomoditas[0] : "";
+        let initialBulan = "Januari";
+
         if (data.meta.latestMonth && data.meta.latestMonth.includes("-")) {
-          const monthIndex = parseInt(data.meta.latestMonth.split("-")[1], 10) -1;
+          const monthIndex = parseInt(data.meta.latestMonth.split("-")[1], 10) - 1;
           if (MONTH_NAMES_ID[monthIndex]) {
-            setBulan(MONTH_NAMES_ID[monthIndex])
+            initialBulan = MONTH_NAMES_ID[monthIndex];
           }
         }
+
+        // Set nilai default awal ke kedua kelompok state
+        setWilayah(initialWilayah);
+        setKomoditas(initialKomoditas);
+        setBulan(initialBulan);
+
+        setAppliedWilayah(initialWilayah);
+        setAppliedKomoditas(initialKomoditas);
+        setAppliedBulan(initialBulan);
 
         setShowData(true);
       } catch (error) {
@@ -54,6 +67,12 @@ export const Dashboard = () => {
 
   const handleCekHarga = () => {
     setIsLoading(true);
+
+    // Terapkan nilai dropdown terbaru ke InfoSection HANYA saat tombol diklik
+    setAppliedWilayah(wilayah);
+    setAppliedKomoditas(komoditas);
+    setAppliedBulan(bulan);
+
     setTimeout(() => {
       setIsLoading(false);
     }, 700);
@@ -62,33 +81,35 @@ export const Dashboard = () => {
   return (
     <section>
       <Header />
-      
+
       <div className="py-4 pb-8">
-        <DropdownContainer 
+        <DropdownContainer
           wilayah={wilayah}
           setWilayah={setWilayah}
-          komoditas={komoditas} 
+          komoditas={komoditas}
           setKomoditas={setKomoditas}
-          bulan={bulan} 
+          bulan={bulan}
           setBulan={setBulan}
           onCekHarga={handleCekHarga}
-          wilayahOptions={appData? ["NASIONAL", ...appData.meta.provinces] : []}
-          komoditasOptions={appData? Object.values(appData.meta.commodities).map((item: any) => 
-            typeof item === "object" ? item.label : item
-          ) : []
+          wilayahOptions={appData ? ["NASIONAL", ...appData.meta.provinces] : []}
+          komoditasOptions={
+            appData
+              ? Object.values(appData.meta.commodities).map((item: any) =>
+                  typeof item === "object" ? item.label : item
+                )
+              : []
           }
-        
         />
       </div>
 
       <div>
         {showData && (
-          <InfoSection 
+          <InfoSection
             isLoading={isLoading}
             appData={appData}
-            selectedWilayah={wilayah}
-            selectedKomoditas={komoditas}
-            selectedBulan={bulan} 
+            selectedWilayah={appliedWilayah}
+            selectedKomoditas={appliedKomoditas}
+            selectedBulan={appliedBulan}
           />
         )}
       </div>

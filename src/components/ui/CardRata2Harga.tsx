@@ -26,9 +26,9 @@ export const CardRata2Harga = ({
             <div 
                 className={`text-xs border p-2 rounded-full flex justify-center items-center gap-2 ${
                 isTurun
-                    ? "bg-brand-positive text-brand-positive border-brand-icon" 
+                    ? "bg-brand-icon/20 text-brand-icon border-brand-icon/20" 
                     : status === "Naik"
-                    ? "bg-brand-negative text-brand-negative border-brand-negative"
+                    ? "bg-brand-negative/20 text-brand-negative border-brand-negative/20"
                     : "bg-slate-100 text-slate-600 border-slate-300"
                 }`}
             >
@@ -57,7 +57,7 @@ export const CardRata2Harga = ({
         <div className="flex gap-1 text-xs justify-center items-center text-brand-gray pt-1">
             <Icon icon="ant-design:info-circle-outlined" className="text-lg shrink-0 mt-0.5" />
             <p>
-                Data Januari 2021-2026. Data ini bersumber dari Badan Pangan Nasional yang telah diolah oleh internal kami.
+                Data Januari 2021-2026. Data ini bersumber dari Badan Pangan Nasional yang telah diolah oleh tim internal kami.
             </p>
         </div>
     </div>
