@@ -1,4 +1,5 @@
 import { CardRata2Harga } from "../ui/CardRata2Harga";
+import PolaHargaChart from "../ui/PolaHargaChart";
 import { RecommendCard } from "../ui/RecommendCard";
 import { SaranPangi } from "../ui/SaranPangi";
 import { TermurahMahalCard } from "../ui/TermurahMahalCard";
@@ -15,7 +16,7 @@ export const InfoSection = () => {
           </div>
           <SaranPangi />
         </div>
-        InfoSection
+        <PolaHargaChart />
     </div>
   )
 }
