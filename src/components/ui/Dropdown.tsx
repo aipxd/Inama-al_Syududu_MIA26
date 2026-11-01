@@ -1,18 +1,17 @@
 import { useState, useRef, useEffect } from "react";
 import { Icon } from "@iconify/react";
 
-export const Dropdown = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [selected, setSelected] = useState("NTT (Nusa Tenggara Timur)");
-  const dropdownRef = useRef<HTMLDivElement>(null);
+interface DropdownProps {
+  label: string;
+  icon: string;
+  options: string[]
+  value: string;
+  onChange: (val: string) => void
+}
 
-  const options = [
-    "Jawa Timur",
-    "Jawa Barat",
-    "Jawa Tengah",
-    "NTB (Nusa Tenggara Barat)",
-    "NTT (Nusa Tenggara Timur)",
-  ];
+export const Dropdown = ({ icon, label, options, value, onChange, }: DropdownProps) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   // Otomatis menutup dropdown jika pengguna mengeklik di luar area komponen
   useEffect(() => {
@@ -29,11 +28,10 @@ export const Dropdown = () => {
     <div className="relative rounded-xl mb-2 min-w-0" ref={dropdownRef}>
       {/* Label Atas */}
       <div className="flex items-center gap-2 mb-1.5 font-semibold">
-        <Icon icon="akar-icons:location" className="text-lg text-brand-icon shrink-0" />
-        <h3 className="text-xs text-brand-gray truncate">PILIH WILAYAH</h3>
+        <Icon icon={icon} className="text-lg text-brand-icon shrink-0" />
+        <h3 className="text-xs text-brand-gray truncate">{label}</h3>
       </div>
 
-      {/* 1. TOMBOL UTAMA (TRIGGER) */}
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
@@ -43,9 +41,7 @@ export const Dropdown = () => {
             : "border-black/20 hover:border-brand-yellow/50 hover:shadow-sm text-black/70"
         }`}
       >
-        <p className="font-medium truncate min-w-0 text-left text-slate-800">{selected}</p>
-
-        {/* Animasi Panah Berputar & Membesar Halus */}
+        <p className="font-medium truncate min-w-0 text-left text-slate-800">{value}</p>
         <Icon
           icon="basil:caret-down-outline"
           className={`text-2xl shrink-0 transition-all duration-300 ease-out ${
@@ -54,7 +50,6 @@ export const Dropdown = () => {
         />
       </button>
 
-      {/* 2. MENU DROPDOWN DENGAN ANIMASI FADE + SLIDE + SCALE */}
       <div
         className={`absolute left-0 right-0 mt-1 z-50 bg-white border border-slate-200/80 rounded-2xl shadow-xl max-h-56 overflow-y-auto p-1.5 transition-all duration-200 ease-out ${
           isOpen
@@ -63,23 +58,21 @@ export const Dropdown = () => {
         }`}
       >
         {options.map((option, index) => {
-          const isSelected = selected === option;
           return (
             <button
               key={index}
               type="button"
               onClick={() => {
-                setSelected(option);
+                onChange(option);
                 setIsOpen(false);
               }}
-              className={`w-full text-left px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 flex items-center justify-between cursor-pointer select-none ${
-                isSelected
-                  ? "bg-brand-yellow text-white font-bold translate-x-1"
+              className={`w-full text-left px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 flex items-center justify-between cursor-pointer select-none ${value === option
+                  ? "bg-brand-yellow text-white font-bold"
                   : "text-slate-700 hover:bg-brand-yellow/10 hover:text-brand-yellow hover:translate-x-1"
               }`}
             >
               <span>{option}</span>
-              {isSelected && (
+              {value === option && (
                 <Icon icon="akar-icons:check" className="text-base shrink-0 animate-pulse" />
               )}
             </button>
