@@ -65,7 +65,7 @@ export const RecommendCard = ({
                 </p>
             </div>
             
-            <div>
+            <div className="ml-2">
                 <Pangi />
             </div>
         </div>

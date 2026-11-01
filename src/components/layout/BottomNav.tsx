@@ -15,7 +15,7 @@ const navItems: NavItem[] = [
   },
   {
     path: "/rank",
-    label: "Provinsi",
+    label: "Peringkat Provinsi",
     icon: <Icon icon="akar-icons:map" fontSize={25}/>,
   },
   {

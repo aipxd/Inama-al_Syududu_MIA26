@@ -24,7 +24,7 @@ export const InfoSection = ({
   selectedBulan,
 }: InfoSectionProps) => {
   if (isLoading || !appData) {
-    return <Loading />
+    return <Loading />;
   }
 
   // 1. Dapatkan ID Komoditas dari label terpilih
@@ -38,7 +38,13 @@ export const InfoSection = ({
     commodityId =
       Object.keys(appData.meta.commodities).find((key) => {
         const item = appData.meta.commodities[key];
-        const label = typeof item === "object" ? item.label : item;
+        // Handle both object and string types for backward compatibility
+        const label =
+          typeof item === "object" && item !== null && "label" in item
+            ? item.label
+            : typeof item === "string"
+            ? item
+            : "";
         return label === selectedKomoditas || key === selectedKomoditas;
       }) || "";
   }
@@ -57,36 +63,47 @@ export const InfoSection = ({
     ? appData.national[commodityId] || []
     : appData.monthly[commodityId]?.[selectedWilayah] || [];
 
-  // 3. Cari Indeks Bulan Terpilih & Bulan Sebelumnya (01-12)
+  // 3. Hitung Data Rata-Rata 5 Tahun (2021-2025) untuk 12 Bulan (Digunakan oleh Chart & Card)
+  const chartData = MONTH_NAMES_ID.map((namaBulan, monthIdx) => {
+    const monthCode = (monthIdx + 1).toString().padStart(2, "0");
+    const values: number[] = [];
+
+    if (appData.meta.months && monthlyPrices.length > 0) {
+      appData.meta.months.forEach((ymStr, idx) => {
+        const [year, mCode] = ymStr.split("-");
+        const yearNum = parseInt(year, 10);
+        if (mCode === monthCode && yearNum >= 2021 && yearNum <= 2025) {
+          const val = monthlyPrices[idx];
+          if (val != null && val > 0) {
+            values.push(val);
+          }
+        }
+      });
+    }
+
+    const avgPrice =
+      values.length > 0
+        ? Math.round(values.reduce((acc, val) => acc + val, 0) / values.length)
+        : 0;
+
+    return {
+      month: namaBulan.slice(0, 3), // 'Jan', 'Feb', dst.
+      bulanFull: namaBulan,
+      price: avgPrice,
+    };
+  });
+
+  // 4. Cari Indeks Bulan Terpilih & Bulan Sebelumnya (01-12)
   const selectedMonthIndex = MONTH_NAMES_ID.findIndex(
     (b) => b.toLowerCase() === selectedBulan.toLowerCase()
   );
+  const targetMonthIndex = selectedMonthIndex >= 0 ? selectedMonthIndex : 0;
+  const targetMonthNum = (targetMonthIndex + 1).toString().padStart(2, "0");
 
-  const targetMonthNum = (selectedMonthIndex >= 0 ? selectedMonthIndex + 1 : 1)
-    .toString()
-    .padStart(2, "0");
+  const prevMonthIndex = targetMonthIndex === 0 ? 11 : targetMonthIndex - 1;
 
-  const prevMonthIndex = selectedMonthIndex === 0 ? 11 : selectedMonthIndex - 1;
-  const prevMonthNum = (prevMonthIndex + 1).toString().padStart(2, "0");
-
-  // 4. Hitung Rata-Rata Harga Bulan Terpilih & Bulan Sebelumnya (2021-2025)
-  const getAverageForMonth = (monthCode: string) => {
-    if (!appData.meta.months || monthlyPrices.length === 0) return 0;
-
-    const values: number[] = [];
-    appData.meta.months.forEach((ymStr, idx) => {
-      if (ymStr.endsWith(`-${monthCode}`) && monthlyPrices[idx] != null) {
-        values.push(monthlyPrices[idx]);
-      }
-    });
-
-    if (values.length === 0) return 0;
-    const sum = values.reduce((acc, val) => acc + val, 0);
-    return Math.round(sum / values.length);
-  };
-
-  const hargaRataRataBulanTerpilih = getAverageForMonth(targetMonthNum);
-  const hargaRataRataBulanLalu = getAverageForMonth(prevMonthNum);
+  const hargaRataRataBulanTerpilih = chartData[targetMonthIndex]?.price || 0;
+  const hargaRataRataBulanLalu = chartData[prevMonthIndex]?.price || 0;
 
   // 5. Hitung Persentase Selisih (MoM) dan Status (Naik / Turun / Stabil)
   let persentaseSelisih = 0;
@@ -105,9 +122,9 @@ export const InfoSection = ({
 
   // 6. Penentuan Satuan Dinamis
   const isMinyak = selectedKomoditas.toLowerCase().includes("minyak");
-  const satuan = isMinyak ? "liter" : "kg";
+  const satuan = isMinyak ? "/liter" : "/kg";
 
-  // 7. Hitung Data Musiman (Seasonal) untuk RecommendCard (TENTUKAN DI SINI)
+  // 7. Hitung Data Musiman (Seasonal) untuk RecommendCard & SaranPangi
   const regionKey = isNasional ? "NASIONAL" : selectedWilayah;
 
   const seasonalArray: number[] =
@@ -118,7 +135,7 @@ export const InfoSection = ({
 
   seasonalArray.forEach((val, idx) => {
     if (val < seasonalArray[minIdx]) minIdx = idx;
-    if (val > seasonalArray[maxIdx]) maxIdx = idx; // Koreksi nama variabel di sini
+    if (val > seasonalArray[maxIdx]) maxIdx = idx;
   });
 
   const bulanTermurah = MONTH_NAMES_ID[minIdx] || "Januari";
@@ -129,7 +146,7 @@ export const InfoSection = ({
   const diffPercent = ((maxVal - minVal) / minVal) * 100;
   const displaySelisih = `${Math.round(diffPercent)}%`;
 
-// Cari seluruh harga pada bulan terpilih khusus rentang tahun 2021-2025
+  // 8. Cari seluruh harga pada bulan terpilih khusus rentang tahun 2021-2025
   const pricesForSelectedMonth: number[] = [];
   if (appData.meta.months && monthlyPrices.length > 0) {
     appData.meta.months.forEach((ymStr, idx) => {
@@ -148,8 +165,6 @@ export const InfoSection = ({
     pricesForSelectedMonth.length > 0 ? Math.min(...pricesForSelectedMonth) : 0;
   const maxHargaBulan =
     pricesForSelectedMonth.length > 0 ? Math.max(...pricesForSelectedMonth) : 0;
-
-
 
   return (
     <div className="bg-brand-bg rounded-t-2xl p-4 min-h-screen flex flex-col justify-center items-center gap-5 pt-10 pb-25">
@@ -170,16 +185,16 @@ export const InfoSection = ({
           bulanTermahal={bulanTermahal}
           selisihPersen={displaySelisih}
         />
-        <div className="flex flex-row justify-around items-center p-3 gap-4">
-          <TermurahMahalCard 
-          type="termurah"
-          harga={formatRupiah(minHargaBulan)}
-          satuan={satuan}
+        <div className="flex flex-row justify-around items-center p-3 gap-2">
+          <TermurahMahalCard
+            type="termurah"
+            harga={formatRupiah(minHargaBulan)}
+            satuan={satuan}
           />
-          <TermurahMahalCard 
-          type="termahal"
-          harga={formatRupiah(maxHargaBulan)}
-          satuan={satuan}
+          <TermurahMahalCard
+            type="termahal"
+            harga={formatRupiah(maxHargaBulan)}
+            satuan={satuan}
           />
         </div>
         <SaranPangi
@@ -191,7 +206,8 @@ export const InfoSection = ({
         />
       </div>
 
-      <PolaHargaChart />
+      {/* Grafik Pola Harga 12 Bulan */}
+      <PolaHargaChart data={chartData} />
       <InfoSumber />
     </div>
   );

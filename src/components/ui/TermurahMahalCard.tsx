@@ -15,7 +15,7 @@ export const TermurahMahalCard = ({
 
   return (
     <div
-      className={`flex-1 p-3 rounded-2xl flex items-center gap-3 text-white ${
+      className={`flex-1 p-3 rounded-2xl flex justify-center items-center gap-3 text-white ${
         isTermahal
           ? "bg-linear-to-r from-[#FF5900] to-brand-negative"
           : "bg-linear-to-r from-[#41B573] to-[#68CC4F]"

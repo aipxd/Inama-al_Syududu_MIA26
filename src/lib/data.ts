@@ -1,3 +1,10 @@
+export interface Commodity {
+  id: string;
+  label: string;
+  unit: string;
+  csvName: string;
+}
+
 export interface MetaData {
   source: string;
   dataset: string;
@@ -5,7 +12,7 @@ export interface MetaData {
   unit: Record<string, string>;
   months: string[];
   provinces: string[];
-  commodities: Record<string, string>;
+  commodities: Commodity[];
   latestMonth: string;
   seasonalYears: string;
   limitedProvinces: string[];

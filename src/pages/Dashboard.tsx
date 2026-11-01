@@ -29,8 +29,8 @@ export const Dashboard = () => {
 
         const daftarProvinsi = data.meta.provinces || [];
         const daftarKomoditas = data.meta.commodities
-          ? Object.values(data.meta.commodities).map((item: any) =>
-              typeof item === "object" ? item.label : item
+          ? data.meta.commodities.map((item) =>
+              typeof item === "object" && item !== null && "label" in item ? item.label : typeof item === "string" ? item : ""
             )
           : [];
 
@@ -94,9 +94,7 @@ export const Dashboard = () => {
           wilayahOptions={appData ? ["NASIONAL", ...appData.meta.provinces] : []}
           komoditasOptions={
             appData
-              ? Object.values(appData.meta.commodities).map((item: any) =>
-                  typeof item === "object" ? item.label : item
-                )
+              ? appData.meta.commodities.map((item) => item.label)
               : []
           }
         />
