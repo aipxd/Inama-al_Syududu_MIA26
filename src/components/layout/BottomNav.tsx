@@ -1,26 +1,31 @@
 import { Icon } from "@iconify/react";
 import { NavLink } from "react-router-dom";
 
-export const BottomNav = () => {
-  // Daftar menu navigasi
-  const navItems = [
-    {
-      path: "/",
-      label: "Cek Harga",
-      emoji: <Icon icon="bi:cash-stack" fontSize={25}/>,
-    },
-    {
-      path: "/rank",
-      label: "Provinsi",
-      emoji: <Icon icon="akar-icons:map" fontSize={25}/>,
-    },
-    {
-      path: "/guide",
-      label: "Panduan",
-      emoji: <Icon icon="carbon:book" fontSize={25}/>,
-    },
-  ];
+interface NavItem {
+  path: string;
+  label: string;
+  icon: any;
+}
 
+const navItems: NavItem[] = [
+  {
+    path: "/",
+    label: "Cek Harga",
+    icon: <Icon icon="bi:cash-stack" fontSize={25}/>,
+  },
+  {
+    path: "/rank",
+    label: "Provinsi",
+    icon: <Icon icon="akar-icons:map" fontSize={25}/>,
+  },
+  {
+    path: "/guide",
+    label: "Panduan",
+    icon: <Icon icon="carbon:book" fontSize={25}/>,
+  },
+];
+
+export const BottomNav = () => {
   return (
     <nav className="fixed bottom-4 left-1/2 -translate-x-1/2 w-[90%] max-w-md z-50">
       <div className="bg-gradient-to-r from-brand-primary to-brand-secondary rounded-full shadow-xl py-1 flex justify-around items-center border border-white/30">
@@ -37,7 +42,7 @@ export const BottomNav = () => {
             }
           >
             {/* Icon Emoji */}
-            <span className="text-xl leading-none">{item.emoji}</span>
+            <span className="text-xl leading-none">{item.icon}</span>
 
             {/* Label Navigasi */}
             <span className="text-xs tracking-tight">{item.label}</span>
